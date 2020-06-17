@@ -18,6 +18,12 @@ public class AddEditTaskViewModel extends AndroidViewModel {
     public static final int DEFAULT_TASK_ID = -1;
     public static int mTaskID = DEFAULT_TASK_ID;
 
+    AddEditTaskViewModel(Application application) {
+        super(application);
+        AppDatabase database = AppDatabase.getInstance(application);
+        repository = new Repository(database);
+    }
+
     AddEditTaskViewModel(Application application, int taskId) {
         super(application);
         AppDatabase database = AppDatabase.getInstance(application);
@@ -28,6 +34,7 @@ public class AddEditTaskViewModel extends AndroidViewModel {
             task = repository.getTaskById(taskId);
     }
 
+    public static boolean isadd = true;
 
     public LiveData<TaskEntry> getTask() {
         return task;

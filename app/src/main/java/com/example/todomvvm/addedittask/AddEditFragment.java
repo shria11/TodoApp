@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 
 import com.example.todomvvm.R;
 import com.example.todomvvm.database.TaskEntry;
+import com.example.todomvvm.tasks.MainActivity;
 
 import java.util.Date;
 
@@ -51,10 +52,8 @@ public class AddEditFragment extends Fragment {
         initViews();
 
 
-        if (AddEditTaskViewModel.mTaskID == AddEditTaskViewModel.DEFAULT_TASK_ID) {
-            // populate the UI
-
-
+        if (!AddEditTaskViewModel.isadd) {
+            Log.d("Shreeya", "update");
             AddEditTaskViewModelFactory factory = new AddEditTaskViewModelFactory(getActivity().getApplication(), AddEditTaskViewModel.mTaskID);
             viewModel = ViewModelProviders.of(this, factory).get(AddEditTaskViewModel.class);
 
@@ -62,14 +61,27 @@ public class AddEditFragment extends Fragment {
                 @Override
                 public void onChanged(TaskEntry taskEntry) {
                     viewModel.getTask().removeObserver(this);
+                    setUpViewModel(taskEntry);
                 }
             });
 
         } else {
+            Log.d("Shreeya", "ADD");
             AddEditTaskViewModelFactory factory = new AddEditTaskViewModelFactory(getActivity().getApplication(), AddEditTaskViewModel.mTaskID);
             viewModel = ViewModelProviders.of(this, factory).get(AddEditTaskViewModel.class);
+
         }
         return rootview;
+    }
+
+    public void setUpViewModel(TaskEntry taskEntry) {
+        if (taskEntry != null) {
+            mEditText.setText(taskEntry.getDescription());
+            mEditText2.setText(taskEntry.getLocation());
+            setPriorityInViews(taskEntry.getPriority());
+            mButton.setText("Update");
+        }
+
     }
 
     public void onSaveButtonClicked() {
@@ -79,14 +91,19 @@ public class AddEditFragment extends Fragment {
         Date date = new Date();
         String location = mEditText2.getText().toString();
         TaskEntry todo = new TaskEntry(description, priority, date, location);
-        if (AddEditTaskViewModel.mTaskID == AddEditTaskViewModel.DEFAULT_TASK_ID)
+        if (AddEditTaskViewModel.mTaskID == AddEditTaskViewModel.DEFAULT_TASK_ID) {
             viewModel.insertTask(todo);
-        else {
+            Log.d("Shreeya", "add pachi");
+        } else {
             todo.setId(AddEditTaskViewModel.mTaskID);
             viewModel.updateTask(todo);
-
         }
+        gotoMainActivity();
+    }
 
+    public void gotoMainActivity() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
     }
 
     public int getPriorityFromViews() {

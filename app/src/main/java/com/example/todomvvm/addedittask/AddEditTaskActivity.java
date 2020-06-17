@@ -43,8 +43,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null && intent.hasExtra(EXTRA_TASK_ID)) {
+            AddEditTaskViewModel.isadd = false;
             AddEditTaskViewModel.mTaskID = intent.getIntExtra(EXTRA_TASK_ID, AddEditTaskViewModel.DEFAULT_TASK_ID);
 
+        } else {
+            AddEditTaskViewModel.isadd = true;
         }
         Fragment fragment = new AddEditFragment();
         FragmentManager fm = this.getSupportFragmentManager();
