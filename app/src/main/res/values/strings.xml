@@ -20,4 +20,11 @@
 
     <string name="add_button">Add</string>
     <string name="update_button">Update</string>
+    <string name="edit_task_location">Edit Location..</string>
+    <string name="location_button">Go Location</string>
+
+    <string name="title_activity_info">info</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_app_info">AppInfo</string>
 </resources>

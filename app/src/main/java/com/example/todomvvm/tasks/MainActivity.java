@@ -10,8 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.example.todomvvm.AppInfo;
 import com.example.todomvvm.addedittask.AddEditTaskActivity;
 import com.example.todomvvm.R;
 import com.example.todomvvm.database.AppDatabase;
@@ -74,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
                 List<TaskEntry> todoList = mAdapter.getTasks();
                 viewModel.deleteTask(todoList.get(position));
             }
+
         }).attachToRecyclerView(mRecyclerView);
 
         /*
@@ -100,11 +105,29 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
         });
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_file, menu);
+        return true;
+    }
+
     @Override
     public void onItemClickListener(int itemId) {
         // Launch AddTaskActivity adding the itemId as an extra in the intent
         Intent intent = new Intent(MainActivity.this, AddEditTaskActivity.class);
         intent.putExtra(AddEditTaskActivity.EXTRA_TASK_ID, itemId);
         startActivity(intent);
+    }
+
+    public void newTask(MenuItem item) {
+        Intent addTaskIntent = new Intent(MainActivity.this, AddEditTaskActivity.class);
+        startActivity(addTaskIntent);
+    }
+
+    public void App_Info(MenuItem item) {
+        Intent InfoIntent = new Intent(MainActivity.this, AppInfo.class);
+        startActivity(InfoIntent);
     }
 }

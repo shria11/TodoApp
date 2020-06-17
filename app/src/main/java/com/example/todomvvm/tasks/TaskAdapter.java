@@ -55,7 +55,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         // Inflate the task_layout to a view
         View view = LayoutInflater.from(mContext)
                 .inflate(R.layout.task_layout, parent, false);
-
         return new TaskViewHolder(view);
     }
 
@@ -70,11 +69,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         // Determine the values of the wanted data
         TaskEntry taskEntry = mTaskEntries.get(position);
         String description = taskEntry.getDescription();
+        String location = taskEntry.getLocation();
         int priority = taskEntry.getPriority();
         String updatedAt = dateFormat.format(taskEntry.getUpdatedAt());
 
         //Set values
         holder.taskDescriptionView.setText(description);
+        holder.taskLocationView.setText(location);
         holder.updatedAtView.setText(updatedAt);
 
         // Programmatically set the text and color for the priority TextView
@@ -85,6 +86,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         // Get the appropriate background color based on the priority
         int priorityColor = getPriorityColor(priority);
         priorityCircle.setColor(priorityColor);
+
     }
 
     /*
@@ -121,7 +123,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         return mTaskEntries.size();
     }
 
-    public List<TaskEntry> getTasks(){
+    public List<TaskEntry> getTasks() {
         return mTaskEntries;
     }
 
@@ -143,6 +145,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
         // Class variables for the task description and priority TextViews
         TextView taskDescriptionView;
+        TextView taskLocationView;
         TextView updatedAtView;
         TextView priorityView;
 
@@ -155,6 +158,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             super(itemView);
 
             taskDescriptionView = itemView.findViewById(R.id.taskDescription);
+            taskLocationView = itemView.findViewById(R.id.taskLocation);
             updatedAtView = itemView.findViewById(R.id.taskUpdatedAt);
             priorityView = itemView.findViewById(R.id.priorityTextView);
             itemView.setOnClickListener(this);

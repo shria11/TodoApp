@@ -24,9 +24,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase sInstance;
 
-    public static AppDatabase getInstance(Context context){
-        if(sInstance == null){
-            synchronized (LOCK){
+    public static AppDatabase getInstance(Context context) {
+        if (sInstance == null) {
+            synchronized (LOCK) {
                 Log.d(LOG_TAG, "Creating a new database instance");
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
                         AppDatabase.class, AppDatabase.DATABASE_NAME)
@@ -38,7 +38,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return sInstance;
     }
 
-public abstract TaskDao taskDao();
+    public abstract TaskDao taskDao();
 
 
 }

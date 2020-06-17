@@ -8,19 +8,19 @@ public class Repository {
 
     TaskDao dao;
 
-    public Repository(AppDatabase appDatabase){
+    public Repository(AppDatabase appDatabase) {
         dao = appDatabase.taskDao();
     }
 
-    public LiveData<List<TaskEntry>> getTasks(){
-       return dao.loadAllTasks();
+    public LiveData<List<TaskEntry>> getTasks() {
+        return dao.loadAllTasks();
     }
 
-    public LiveData<TaskEntry> getTaskById(int taskId){
+    public LiveData<TaskEntry> getTaskById(int taskId) {
         return dao.loadTAskById(taskId);
     }
 
-    public void updateTask(final TaskEntry task){
+    public void updateTask(final TaskEntry task) {
         AppDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -29,16 +29,16 @@ public class Repository {
         });
     }
 
-    public void deleteTask(final TaskEntry task){
+    public void deleteTask(final TaskEntry task) {
         AppDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
-               dao.deleteTask(task);
+                dao.deleteTask(task);
             }
         });
     }
 
-    public  void  insertTask(final TaskEntry task){
+    public void insertTask(final TaskEntry task) {
         AppDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {

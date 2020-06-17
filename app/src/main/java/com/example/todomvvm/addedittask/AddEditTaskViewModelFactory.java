@@ -13,7 +13,7 @@ public class AddEditTaskViewModelFactory extends ViewModelProvider.NewInstanceFa
     Application application;
     int taskId;
 
-    public AddEditTaskViewModelFactory(Application application, int taskId){
+    public AddEditTaskViewModelFactory(Application application, int taskId) {
         this.application = application;
         this.taskId = taskId;
     }
@@ -21,6 +21,6 @@ public class AddEditTaskViewModelFactory extends ViewModelProvider.NewInstanceFa
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return  (T) new AddEditTaskViewModel(application, taskId);
+        return (T) new AddEditTaskViewModel(application, taskId);
     }
 }

@@ -5,7 +5,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +35,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
     // Constant for logging
     private static final String TAG = AddEditTaskActivity.class.getSimpleName();
     // Fields for views
-    EditText mEditText;
+    EditText mEditText, mEditText2;
     RadioGroup mRadioGroup;
     Button mButton;
 
@@ -45,9 +47,6 @@ public class AddEditTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_task);
-
-
-
         initViews();
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
@@ -75,7 +74,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 });
 
             }
-        }else{
+        } else {
             AddEditTaskViewModelFactory factory = new AddEditTaskViewModelFactory(getApplication(), mTaskId);
             viewModel = ViewModelProviders.of(this, factory).get(AddEditTaskViewModel.class);
         }
@@ -92,6 +91,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
      */
     private void initViews() {
         mEditText = findViewById(R.id.editTextTaskDescription);
+        mEditText2 = findViewById(R.id.editTextTaskLocation);
         mRadioGroup = findViewById(R.id.radioGroup);
 
         mButton = findViewById(R.id.saveButton);
@@ -109,10 +109,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
      * @param task the taskEntry to populate the UI
      */
     private void populateUI(TaskEntry task) {
-        if(task == null){
+        if (task == null) {
             return;
         }
         mEditText.setText(task.getDescription());
+        mEditText2.setText(task.getLocation());
         setPriorityInViews(task.getPriority());
 
     }
@@ -126,10 +127,11 @@ public class AddEditTaskActivity extends AppCompatActivity {
         String description = mEditText.getText().toString();
         int priority = getPriorityFromViews();
         Date date = new Date();
-        TaskEntry todo = new TaskEntry(description, priority, date);
-        if(mTaskId == DEFAULT_TASK_ID)
+        String location = mEditText2.getText().toString();
+        TaskEntry todo = new TaskEntry(description, priority, date, location);
+        if (mTaskId == DEFAULT_TASK_ID)
             viewModel.insertTask(todo);
-        else{
+        else {
             todo.setId(mTaskId);
             viewModel.updateTask(todo);
 
@@ -172,6 +174,24 @@ public class AddEditTaskActivity extends AppCompatActivity {
                 break;
             case PRIORITY_LOW:
                 ((RadioGroup) findViewById(R.id.radioGroup)).check(R.id.radButton3);
+        }
+    }
+
+    public void openLocation(View view) {
+        mEditText2 = findViewById(R.id.editTextTaskLocation);
+        // Get the string indicating a location. Input is not validated; it is
+        // passed to the location handler intact.
+        String loc = mEditText2.getText().toString();
+
+        // Parse the location and create the intent.
+        Uri addressUri = Uri.parse("geo:0,0?q=" + loc);
+        Intent intent = new Intent(Intent.ACTION_VIEW, addressUri);
+
+        // Find an activity to handle the intent, and start that activity.
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Log.d("ImplicitIntents", "Can't handle this intent!");
         }
     }
 }

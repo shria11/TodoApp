@@ -14,21 +14,24 @@ public class TaskEntry {
     private int id;
     private String description;
     private int priority;
-    @ColumnInfo(name="updated_at")
+    @ColumnInfo(name = "updated_at")
     private Date updatedAt;
+    private String location;
 
     @Ignore
-    public TaskEntry(String description, int priority, Date updatedAt) {
+    public TaskEntry(String description, int priority, Date updatedAt, String location) {
         this.description = description;
         this.priority = priority;
         this.updatedAt = updatedAt;
+        this.location = location;
     }
 
-    public TaskEntry(int id, String description, int priority, Date updatedAt) {
+    public TaskEntry(int id, String description, int priority, Date updatedAt, String location) {
         this.id = id;
         this.description = description;
         this.priority = priority;
         this.updatedAt = updatedAt;
+        this.location = location;
     }
 
     public int getId() {
@@ -62,4 +65,13 @@ public class TaskEntry {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
 }
