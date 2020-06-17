@@ -1,5 +1,5 @@
-#### TODO APP
-##It is an android app designed to list tasks by the user and sort them by priorities. The user is able to add location and description. The user can also update and swipe to
+## TODO APP
+## It is an android app designed to list tasks by the user and sort them by priorities. The user is able to add location and description. The user can also update and swipe to
 delete tasks. The app has menu that has the information about the app. A floating accent button is for the ease of access to create a new task. The location also open ups in google maps
 for a detailed view.
 
