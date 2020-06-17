@@ -23,8 +23,15 @@
     <string name="edit_task_location">Edit Location..</string>
     <string name="location_button">Go Location</string>
 
-    <string name="title_activity_info">info</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="title_activity_app_info">AppInfo</string>
+    <string name="about_text">This app was designed as a todo list.
+        It has many features such as differentiating todo task according to priority,adding description, location etc.
+        It also has the feature to delete and update the task.
+        There is a floating accent button for quick access in creating task.
+        Using RecyclerView, Architecture components, Implicit and explicit intents as well as view models it will likely help you stay motivated.
+
+        Wishing it keeps you driven!
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

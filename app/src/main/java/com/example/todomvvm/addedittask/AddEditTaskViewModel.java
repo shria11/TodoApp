@@ -12,12 +12,17 @@ import com.example.todomvvm.database.TaskEntry;
 
 public class AddEditTaskViewModel extends AndroidViewModel {
 
+
     Repository repository;
     LiveData<TaskEntry> task;
+    public static final int DEFAULT_TASK_ID = -1;
+    public static int mTaskID = DEFAULT_TASK_ID;
 
     AddEditTaskViewModel(Application application, int taskId) {
         super(application);
         AppDatabase database = AppDatabase.getInstance(application);
+
+
         repository = new Repository(database);
         if (taskId != -1)
             task = repository.getTaskById(taskId);
